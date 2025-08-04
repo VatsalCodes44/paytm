@@ -1,12 +1,12 @@
-import { Button } from "./button";
+import { Button } from "./Button";
 
 interface AppbarProps {
     user?: {
-        name?: string | null;
+        id: string | null | undefined;
     },
     // TODO: can u figure out what the type should be here?
-    onSignin: any,
-    onSignout: any
+    onSignin: () => void,
+    onSignout: () => void
 }
 
 export const Appbar = ({

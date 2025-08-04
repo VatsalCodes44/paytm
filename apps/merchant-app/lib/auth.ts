@@ -9,15 +9,10 @@ export const authOptions = {
         })
     ],
     callbacks: {
-      async signIn({ user, account }: {
-        user: {
-          email: string;
-          name: string
-        },
-        account: {
-          provider: "google" | "github"
-        }
-      }) {
+      async signIn({ user, account, profile }:any) {
+        console.log("user", user)
+        console.log("account", account)
+        console.log("profile", profile)
         console.log("hi signin")
         if (!user || !user.email) {
           return false;
@@ -43,6 +38,6 @@ export const authOptions = {
 
         return true;
       }
-    },
-    secret: process.env.NEXTAUTH_SECRET || "secret"
-  }
+  },
+  secret: process.env.NEXTAUTH_SECRET || "secret"
+}
