@@ -36,6 +36,6 @@ jobs:
 
 
             - name: Run Build
-              run: turbo build
+              run: npm run build
 
 
