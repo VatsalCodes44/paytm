@@ -3,10 +3,10 @@ name: Build Succeeds on PR
 
 # now we will write when should this run
 on: 
-    pull_request:  # run whenever pull request is made on branches(master, main)
-        branches: 
-            - master # runs when the pull request is made on the master branch
-            - main   # runs when the pull request is made on the main branch
+  [push]  # run whenever pull request is made on branches(master, main)
+      # branches: 
+      #     - master # runs when the pull request is made on the master branch
+      #     - main   # runs when the pull request is made on the main branch
 
 # now write the jobs that we have to perform, for now we are only doing a single build job.
 jobs: 
