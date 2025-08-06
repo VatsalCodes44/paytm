@@ -4,7 +4,7 @@ import { getSession, useSession } from "next-auth/react";
 
 export default function Page(): JSX.Element {
   const session = useSession()
-  console.log(session.data?.user)
+  // console.log(session.data?.user)
   return (
    <div>
       hi
