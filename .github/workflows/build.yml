@@ -43,7 +43,7 @@ jobs:
       # Build with additional debugging
       - name: Build with Turbo
         run: |
-          npx turbo run build --verbosity
+          npx turbo run build
         env:
           NODE_ENV: development
           DEBUG: 'turbo:*'  # Enable turbo debug logs
