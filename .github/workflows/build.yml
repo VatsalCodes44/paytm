@@ -1,41 +1,49 @@
-name: Build Succeeds on PR
+name: Build and Test
 
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
 
-# now we will write when should this run
-on: [push]
-  # pull_request:  # run whenever pull request is made on branches(master, main)
-  #     branches: 
-  #         - master # runs when the pull request is made on the master branch
-  #         - main   # runs when the pull request is made on the main branch
-  # push:
-  #   branches:
-  #     -main
-  #     -master
+jobs:
+  build:
+    name: Build the project
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./  # Always run from repo root
 
-# now write the jobs that we have to perform, for now we are only doing a single build job.
-jobs: 
-    build: 
-        name: Build the project
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
-            
-            - name: Use Node.js
-              uses: actions/setup-node@v4
-              with: 
-                node-version: '20'
-            
+      # Install dependencies with workspace support
+      - name: Install dependencies
+        run: |
+          npm install -g pnpm@latest  # Recommended for better monorepo support
+          pnpm install --frozen-lockfile
 
-            - name: Install Dependencies (with devDependencies)
-              run: npm ci --include=dev  # Critical for workspace linking
+      # Verify workspace linking
+      - name: Debug workspace links
+        run: |
+          ls -la node_modules/@repo
+          pnpm list @repo/ui
 
+      # Generate Prisma Client
+      - name: Generate Prisma Client
+        run: npx prisma generate --schema=./packages/db/prisma/schema.prisma
+        
 
-            - name: Generate Prisma Client
-              run: npx prisma generate --schema=./packages/db/prisma/schema.prisma
-
-
-            - name: Build All
-              run: npx turbo run build
-
-
+      # Build with additional debugging
+      - name: Build with Turbo
+        run: |
+          npx turbo run build --verbose
+        env:
+          NODE_ENV: development
+          DEBUG: 'turbo:*'  # Enable turbo debug logs
