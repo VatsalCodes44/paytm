@@ -18,3 +18,4 @@ export const GET = async () => {
         })
     }
 }
+console.log(1);
