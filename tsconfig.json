@@ -1,3 +1,10 @@
 {
-  "extends": "@repo/typescript-config/base.json"
+  "extends": "@repo/typescript-config/base.json",
+  "compilerOptions": {
+    "baseUrl": ".", 
+    "paths": {
+      "@repo/ui": ["../../packages/ui/src/index"],
+      "@repo/ui/*": ["../../packages/ui/src/*"]
+    }
+  }
 }
