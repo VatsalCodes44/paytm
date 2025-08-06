@@ -2,7 +2,6 @@
 
 import { useBalance } from "@repo/store/balance";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { authOptions } from "../lib/auth";
 export default function() {
   const session = useSession();
   const balance = useBalance();
