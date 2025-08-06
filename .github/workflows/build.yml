@@ -27,8 +27,8 @@ jobs:
                 node-version: '20'
             
 
-            - name: Install Dependencies
-              run: npm install --workspaces
+            - name: Install Dependencies (with devDependencies)
+              run: npm ci --include=dev  # Critical for workspace linking
 
 
             - name: Generate Prisma Client
