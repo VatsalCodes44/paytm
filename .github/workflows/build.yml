@@ -27,13 +27,13 @@ jobs:
       - name: Install dependencies
         run: |
           npm install -g pnpm@latest  # Recommended for better monorepo support
-          pnpm install --frozen-lockfile
+          npm install --frozen-lockfile
 
       # Verify workspace linking
       - name: Debug workspace links
         run: |
           ls -la node_modules/@repo
-          pnpm list @repo/ui
+          npm list @repo/ui
 
       # Generate Prisma Client
       - name: Generate Prisma Client
