@@ -1,0 +1,37 @@
+name: Build Succeeds on PR
+
+
+# now we will write when should this run
+on: 
+    pull_request:  # run whenever pull request is made on branches(master, main)
+        branches: 
+            - master # runs when the pull request is made on the master branch
+            - main   # runs when the pull request is made on the main branch
+
+# now write the jobs that we have to perform, for now we are only doing a single build job.
+jobs: 
+    build: 
+        name: Build the project
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            
+            - name: Use Node.js
+              uses: actions/setup-node@v4
+              with: 
+                node-version: '23'
+            
+
+            - name: Install Dependencies
+              run: npm install
+
+
+            - name: Generate Prisma Client
+              run: npx prisma generate
+
+
+            - name: Run Build
+              run: npm run build
+
+
